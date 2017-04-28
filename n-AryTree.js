@@ -1,4 +1,6 @@
 // O(n)
+
+// N-ary tree - any number of children
 Tree.prototype.contains = function(value) {
   if (this.value === value) return true;
   for (var i = 0; i < this.children.length; i++) {
