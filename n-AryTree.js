@@ -10,7 +10,7 @@ Tree.prototype.contains = function(value) {
 };
 
 // O(n)
-Tree.prototype.traverseDepthFirst = function(fn) {
+Tree.prototype.traverseDepthFirst = function(fn) { // dont keep track of depth like on a graph
   this.children.forEach(function(child) {
     child.traverseDepthFirst(fn);
   });
