@@ -1,3 +1,4 @@
+// Binary Search Tree
 // log n - height of the tree
 function BinarySearchTree(value) {
   this.value = value;
