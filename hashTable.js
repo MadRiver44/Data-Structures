@@ -1,3 +1,24 @@
+/*
+HASH TABLE
+
+Collection of key/value pairs.
+Map keys to values for efficient lookup.
+Use an array as the underlying data structure.
+
+Hash Table should have a size -- this will be used by the hashing function to determine
+what index to map the key to.
+
+A hashing function is used to map the key to an integer, which is the index that the value is to be stored at.
+Since our hashing function might map multiple keys to the same integer, we have to deal with collisions by
+creating buckets at each index of the storage array. These buckets can be arrays or linked lists.
+
+ES6 has a Map data structure. It differs from the javascript object because the keys can be any value,
+(not just strings like for objects), there i a size property, and there is a guaranteed order (the insertion order).
+
+HashTables are also referred to hash maps, or dictionaries.
+*/
+
+
 // SIMPLE HASHING FUNCTION
 function simpleHash(str, tableSize) {
   var hash = 0;
@@ -16,6 +37,7 @@ function HashTable(tableSize) {
 }
 
 // find is a helper method
+// O(1)
 HashTable.prototype.find = function(key) {
   var hash = simpleHash(key, this._size);
   this._storage[hash] = this._storage[hash] || [];
@@ -69,7 +91,7 @@ console.log(mayMap.get('key'), 'should be value');
 
 // O(1)
 HashTable.prototype.has = function(key) {
-  return !!this/find(key).match;
+  return !!this.find(key).match;
   // !! does type conversion to boolean
   // !!{} => true
   // !!undefined => false
@@ -87,7 +109,7 @@ HashTable.prototype.delete = function(key) {
     var matchIndex = this.find(key).matchIndex;
     bucket.splice(matchIndex, 1);
     this._count--;
-    if (this._count < .025 * this._size) {
+    if (this._count < 0.25 * this._size) {
       this.resize(0.5 * this._size);
     }
   }
@@ -125,7 +147,7 @@ HashTable.prototype.resize = function(newSize) {
   this._size = newSize;
   this._count = 0;
   this._storage = [];
-  var that = this; // i hate this hack
+  var that = this; // i hate this hack, but we need to store it to run the set function
   oldStorage.forEach(function(bucket) {
     bucket.forEach(function(item) {
       var key = Object.keys(item)[0];
@@ -134,6 +156,21 @@ HashTable.prototype.resize = function(newSize) {
   });
 };
 
+console.log('count', myMap._count, 'should be 0');
+consle.log('size', myMap._size, 'should be 5');
+myMap.set('foo', 'bar');
+myMap.set('fooAgain', 'barAgain');
+myMap.set('a', 1);
+myMap.set('b', 2);
+myMap.forEach(console.log);
+console.log('count', myMap._count, 'should be 4');
+console.log('size', myMap._size, 'should be 10 (doubled)');
+myMap.delete('a');
+console.log('count', myMap._count);
+console.log('size', myMap._size);
+myMap.delete('b');
+console.log('count', myMap._count);
+console.log('size', myMap._size, 'shilud be 5 (halved)');
 
 
 
