@@ -16,6 +16,13 @@ ES6 has a Map data structure. It differs from the javascript object because the 
 (not just strings like for objects), there i a size property, and there is a guaranteed order (the insertion order).
 
 HashTables are also referred to hash maps, or dictionaries.
+
+Pros -
+  adding is fast O(1)
+  removing is fast O(1)
+  accessing keyed item is fast O(1)
+Cons -
+  no preserved order, see ES6 map ds above
 */
 
 
@@ -56,6 +63,7 @@ HashTable.prototype.find = function(key) {
 
 // O(1)
 HashTable.prototype.set = function(key, value) {
+  // saves the value in it's proper place
   var match = this.find(key).match;
   var bucket = this.find(key).bucket;
   // if match exists, update value;
